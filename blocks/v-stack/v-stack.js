@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { convertToTable } from '../../scripts/scripts.js';
+import { convertToTable } from '../../scripts/utils.js';
 
 export default function decorate(block) {
   const table = convertToTable(block);

@@ -16,11 +16,11 @@ export default async function decorate(block) {
   header.innerHTML = await resp.text();
   const image = header.querySelector('img');
 
-  image.style.cssText = "display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;font-size:12px";
+  image.style.cssText = "display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;";
   image.style.width = "100%";
 
   block.innerHTML = /*html*/`
-    <table width="100%"> 
+    <table width="100%" style="border: 0px;border-collapse: collapse;border-spacing: 0px;"> 
       <tbody>
         <tr> 
         <td valign="top" align="center" style="padding:0;Margin:0;width:590px"> 

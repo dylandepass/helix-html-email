@@ -10,55 +10,14 @@
  * governing permissions and limitations under the License.
  */
 
-import { HelixApp, decorateSections } from 'https://cdn.skypack.dev/@dylandepass/helix-web-library@v1.4.2/dist/helix-web-library.esm.js';
-
-function wrapTable(table) {
-  return /*html*/`
-    <table align="center">
-      <tbody>
-        <tr>
-          <td>
-            ${table}
-          </td>
-        </tr>
-      </tbody>
-    </table>`;
-}
-
-function css(e, styles) {
-  for (const property in styles) {
-    e.style[property] = styles[property];
-  }
-}
-
-function wrapElementInTableRow(element) {
-  return /*html*/` 
-    <tr>
-      <td align="left" style="padding-top:10px;padding-bottom:10px;">
-        ${element.outerHTML}
-      </td>
-    </tr>`;
-}
-
-export function convertToTable(block) {
-  const paragraphs = block.querySelectorAll(':scope > p, :scope > h1, :scope > h2, :scope > div');
-  const table = /*html*/`
-    <table style="vertical-align:top;" width="100%">
-      <tbody>
-        ${[...paragraphs].map(element => wrapElementInTableRow(element)).join('')}
-      </tbody >
-    </table > `;
-
-  return wrapTable(table);
-}
+import { HelixApp, decorateSections } from 'https://cdn.skypack.dev/@dylandepass/helix-web-library@v1.5.2/dist/helix-web-library.esm.js';
+import { convertToTable } from './utils.js';
 
 HelixApp.init({
   lcpBlocks: [],
-  makeLinksRelative: false
+  makeLinksRelative: false,
+  autoAppear: false,
 })
-  .withLoadEager((doc) => {
-
-  })
   .withDecorateSections((main) => {
     decorateSections(main);
     main.querySelectorAll(':scope > div > div').forEach((section) => {
@@ -68,8 +27,10 @@ HelixApp.init({
         section.remove();
       }
     });
-  }).withLoadLazy(() => {
+  })
+  .withLoadLazy(() => {
     const main = document.querySelector('main');
+
     main.querySelectorAll('p, h1, h2').forEach((paragraph) => {
       paragraph.style.paddingLeft = "20px";
       paragraph.style.paddingRight = "20px";
@@ -126,7 +87,10 @@ HelixApp.init({
 
     const footer = document.querySelector('footer');
     emailTemplate.append(footer);
-
     main.remove();
+
+    setTimeout(() => {
+      document.querySelector('body').classList.add('appear');
+    }, 400);
   })
   .decorate();
