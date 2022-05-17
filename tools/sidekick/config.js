@@ -3,7 +3,13 @@ async function prepareEmailTemplate() {
   const template = document.createElement('html');
   template.innerHTML = await resp.text();
 
-  const content = document.querySelector('body > div');
+  // Make images relative.. Not sure why this works.. else it's relative
+  document.querySelectorAll('img').forEach((img) => {
+    img.src = `${img.src}`;
+  });
+
+
+  const content = document.querySelector('body > div').cloneNode(true);
   template.querySelector('body').append(content);
 
   await navigator.clipboard.writeText(template.outerHTML);

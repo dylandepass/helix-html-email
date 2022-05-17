@@ -1,6 +1,5 @@
 export default function decorate(block) {
   const textContent = block.textContent;
-  console.log('textContent', textContent);
   const table = /*html*/`
     <table width="100%" style="margin-top:20px"> 
       <tbody>
@@ -10,6 +9,5 @@ export default function decorate(block) {
       </tbody>
     </table>
   `;
-  console.log('inner');
   block.innerHTML = table;
 }

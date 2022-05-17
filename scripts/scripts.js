@@ -111,9 +111,6 @@ HelixApp.init({
 
     const header = document.querySelector('header');
     emailTemplate.prepend(header);
-    header.addEventListener('click', () => {
-      prepareEmailTemplate();
-    });
 
     const footer = document.querySelector('footer');
     emailTemplate.append(footer);

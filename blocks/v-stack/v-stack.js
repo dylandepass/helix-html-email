@@ -5,7 +5,6 @@ export default function decorate(block) {
   block.innerHTML = table;
 
   block.querySelectorAll('a').forEach(element => {
-    console.log('element', element);
     element.parentNode.style.paddingTop = '10px';
     element.style.color = '#1473e6';
   });;
