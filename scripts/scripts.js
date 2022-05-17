@@ -77,8 +77,7 @@ HelixApp.init({
     emailTemplate.classList.add('email-template');
     emailTemplate.innerHTML = main.innerHTML;
     emailTemplate.style.margin = '0px auto';
-    emailTemplate.style.minWidth = '600px';
-    emailTemplate.style.width = "100%";
+    emailTemplate.style.maxWidth = '600px';
     emailTemplate.style.backgroundColor = '#ffffff';
     templateWrapper.appendChild(emailTemplate);
     document.body.appendChild(templateWrapper);

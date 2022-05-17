@@ -12,7 +12,7 @@
 
 export function wrapTable(table) {
   return /*html*/`
-    <table align="center" width="100%">
+    <table align="center">
       <tbody>
         <tr>
           <td>
