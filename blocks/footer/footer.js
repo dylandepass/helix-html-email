@@ -1,3 +1,15 @@
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
 export default async function decorate(block) {
   const resp = await fetch(`header.plain.html`);
   const header = document.createElement('div');
@@ -56,7 +68,7 @@ export default async function decorate(block) {
                                 <tr>
                                   <td align="left" style="padding:0;Margin:0;font-size:0px">
                                     <img
-                                      src="/media_1477bccfa5869491bbc1cf27b5debc0174d465059.png?width=2000&format=webply&optimize=medium"
+                                      src="/media_15f15310c842fda313ae358d7cebdbff6a5f9fd98.jpeg?width=750&format=jpeg&optimize=medium"
                                       alt=""
                                       style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"
                                       width="32" height="44">
