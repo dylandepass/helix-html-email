@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-async function prepareEmailTemplate() {
+async function prepareEmailTemplate(sk) {
   const resp = await fetch(`./export-template.html`);
   const template = document.createElement('html');
   template.innerHTML = await resp.text();
@@ -24,7 +24,9 @@ async function prepareEmailTemplate() {
   const content = document.querySelector('body > div').cloneNode(true);
   template.querySelector('body').append(content);
 
-  await navigator.clipboard.writeText(template.outerHTML);
+  navigator.clipboard.writeText(template.outerHTML).then(() => {
+    sk.notify(`Copied to clipboard`);
+  });
 }
 
 window.hlx.initSidekick({
