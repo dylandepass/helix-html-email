@@ -3,16 +3,10 @@ async function prepareEmailTemplate() {
   const template = document.createElement('html');
   template.innerHTML = await resp.text();
 
-  // Make images relative
-  document.querySelectorAll('img').forEach((img) => {
-    img.src = `${img.src}`;
-  });
-
-
   const content = document.querySelector('body > div');
   template.querySelector('body').append(content);
 
-  await navigator.clipboard.writeText(template.innerHTML);
+  await navigator.clipboard.writeText(template.outerHTML);
 }
 
 window.hlx.initSidekick({
