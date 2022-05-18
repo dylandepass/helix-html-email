@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
-import { HelixApp, decorateSections } from 'https://cdn.skypack.dev/@dylandepass/helix-web-library@v1.5.2/dist/helix-web-library.esm.js';
+import { HelixApp, decorateSections, buildBlock, getMetadata } from 'https://cdn.skypack.dev/@dylandepass/helix-web-library@v1.5.2/dist/helix-web-library.esm.js';
 import { convertToTable } from './utils.js';
 
 HelixApp.init({
@@ -18,6 +18,43 @@ HelixApp.init({
   makeLinksRelative: false,
   autoAppear: false,
 })
+  .withBuildAutoBlocks((main) => {
+    main.querySelectorAll(':scope div h2').forEach((h2) => {
+      const section = buildBlock('banner', { elems: [h2.cloneNode(true)] });
+      h2.parentNode.replaceChild(section, h2);
+    });
+
+    main.querySelectorAll(':scope div h3').forEach((h3) => {
+      const stackElements = [h3.cloneNode(true)];
+      let nextElementSibling = h3.nextElementSibling;
+      while (nextElementSibling && (nextElementSibling.tagName === 'H4' || nextElementSibling.tagName === 'P')) {
+        stackElements.push(nextElementSibling.cloneNode(true));
+        const curr = nextElementSibling;
+        nextElementSibling = nextElementSibling.nextElementSibling;
+        curr.remove();
+      }
+
+      const section = buildBlock('v-stack', { elems: stackElements });
+      h3.parentNode.replaceChild(section, h3);
+      h3.remove();
+    });
+
+    const author = getMetadata('author');
+    const authorTitle = getMetadata('author-title');
+
+    const authorParagraph = document.createElement('p');
+    const authorStrong = document.createElement('strong');
+    authorStrong.textContent = author;
+    authorParagraph.appendChild(authorStrong);
+    authorParagraph.style.paddingBottom = '0px';
+
+    const authorTitleParagraph = document.createElement('p');
+    authorTitleParagraph.textContent = authorTitle;
+    authorTitleParagraph.style.paddingTop = '0px';
+
+    main.querySelector(':scope div:nth-child(1)').appendChild(authorParagraph);
+    main.querySelector(':scope div:nth-child(1)').appendChild(authorTitleParagraph);
+  })
   .withDecorateSections((main) => {
     decorateSections(main);
     main.querySelectorAll(':scope > div > div').forEach((section) => {
@@ -31,19 +68,17 @@ HelixApp.init({
   .withLoadLazy(() => {
     const main = document.querySelector('main');
 
-    main.querySelectorAll('p, h1, h2').forEach((paragraph) => {
-      paragraph.style.paddingLeft = "20px";
-      paragraph.style.paddingRight = "20px";
-      paragraph.style.margin = "0px";
-      paragraph.style.webkitTextSizeAdjust = "none";
-      paragraph.style.msTextSizeAdjust = "none";
-      paragraph.style.msoLineHeightRule = "exactly";
-      paragraph.style.fontFamily = "arial, 'helvetica neue', helvetica, sans-serif";
-      if (!paragraph.style.fontSize) {
-        paragraph.style.fontSize = "14px";
-      }
-      if (!paragraph.style.lineHeight) {
-        paragraph.style.lineHeight = "21px";
+    main.querySelectorAll('p, h1, h2, h3, h4, h5').forEach((tag) => {
+      tag.style.paddingLeft = "20px";
+      tag.style.paddingRight = "20px";
+      tag.style.margin = "0px";
+      tag.style.webkitTextSizeAdjust = "none";
+      tag.style.msTextSizeAdjust = "none";
+      tag.style.msoLineHeightRule = "exactly";
+      tag.style.fontFamily = "arial, 'helvetica neue', helvetica, sans-serif";
+      if (tag.tagName === 'P' && !tag.style.fontSize) {
+        tag.style.fontSize = "14px";
+        tag.style.lineHeight = "21px";
       }
     });
 
@@ -64,10 +99,12 @@ HelixApp.init({
       heading.style.fontSize = "24px";
     });
 
-    main.querySelectorAll('h2').forEach((heading) => {
-      heading.style.lineHeight = "30px";
-      heading.style.color = "#333333";
-      heading.style.fontSize = "20px";
+    main.querySelectorAll('h3').forEach((heading) => {
+      heading.style.paddingBottom = "10px";
+    });
+
+    main.querySelectorAll('h4').forEach((heading) => {
+      heading.style.paddingBottom = "5px";
     });
 
     const templateWrapper = document.createElement('div');

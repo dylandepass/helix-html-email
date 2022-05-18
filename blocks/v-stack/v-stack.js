@@ -18,6 +18,7 @@ export default function decorate(block) {
 
   block.querySelectorAll('a').forEach(element => {
     element.parentNode.style.paddingTop = '10px';
+    element.parentNode.style.paddingBottom = '10px';
     element.style.color = '#1473e6';
   });;
 }

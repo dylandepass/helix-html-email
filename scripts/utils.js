@@ -26,14 +26,14 @@ export function wrapTable(table) {
 export function wrapElementInTableRow(element) {
   return /*html*/` 
     <tr>
-      <td align="left" style="padding-top:10px;padding-bottom:10px;">
+      <td align="left" style="${element.style.paddingTop || element.style.paddingBottom ? '' : 'padding-top:10px;padding-bottom:10px;'}">
         ${element.outerHTML}
       </td>
     </tr>`;
 }
 
 export function convertToTable(block) {
-  const paragraphs = block.querySelectorAll(':scope > p, :scope > h1, :scope > h2, :scope > div');
+  const paragraphs = block.querySelectorAll(':scope > p, :scope > h1, :scope > h2, :scope > h3, :scope > h4, :scope > div');
   const table = /*html*/`
     <table style="vertical-align:top;" width="100%">
       <tbody>
