@@ -39,6 +39,12 @@ HelixApp.init({
       h3.remove();
     });
 
+
+    const date = getMetadata('date');
+    const dateElement = document.createElement('span');
+    dateElement.textContent = ` (${date})`;
+    document.querySelector('h1').appendChild(dateElement);
+
     const author = getMetadata('author');
     const authorTitle = getMetadata('author-title');
 
