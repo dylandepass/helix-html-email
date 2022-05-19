@@ -19,12 +19,12 @@ HelixApp.init({
   autoAppear: false,
 })
   .withBuildAutoBlocks((main) => {
-    main.querySelectorAll(':scope div h2').forEach((h2) => {
+    main.querySelectorAll(':scope div:not(:first-child) h2').forEach((h2) => {
       const section = buildBlock('banner', { elems: [h2.cloneNode(true)] });
       h2.parentNode.replaceChild(section, h2);
     });
 
-    main.querySelectorAll(':scope div h3').forEach((h3) => {
+    main.querySelectorAll(':scope div:not(:first-child) h3').forEach((h3) => {
       const stackElements = [h3.cloneNode(true)];
       let nextElementSibling = h3.nextElementSibling;
       while (nextElementSibling && (nextElementSibling.tagName === 'H4' || nextElementSibling.tagName === 'P')) {
