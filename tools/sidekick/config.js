@@ -36,6 +36,7 @@ window.hlx.initSidekick({
   plugins: [
     {
       id: 'generate-email-template',
+      condition: (sidekick) => sidekick.isHelix() && sidekick.location.pathname.includes('hlx.live'),
       button: {
         text: 'Generate Email Template',
         isDropdown: false,
